@@ -38,10 +38,47 @@ fi
 chmod 644 ${SSH_DIR}/known_hosts;
 cat ${SSH_DIR}/known_hosts
 
+LOCAL_CERT="/ssl/cert.pem"
+
+bashio::log.info "=== START AUTOMATYZACJI MÓJ FORK ==="
+
+# Skrócona konfiguracja SSH dla czytelności kodu
+SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
+
+# 1. Sprawdzenie czy lokalny plik w ogóle istnieje
+if [ -f "$LOCAL_CERT" ]; then
+    bashio::log.info "Znaleziono lokalny certyfikat. Sprawdzam wersję na routerze..."
+    
+    # Pobieramy datę modyfikacji pliku lokalnego (w sekundach Unix)
+    LOCAL_TIME=$(stat -c %Y "$LOCAL_CERT")
+    
+    # Pobieramy datę modyfikacji pliku na routerze przez SSH
+    REMOTE_TIME=$($SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "stat -c %Y ${CERT_PATH_ON_ROUTER}" 2>/dev/null)
+    
+    # Awaryjna weryfikacja na wypadek gdyby router nie zwrócił daty (np. brak polecenia stat)
+    if [ -z "$REMOTE_TIME" ] || ! [ "$REMOTE_TIME" -eq "$REMOTE_TIME" ] 2>/dev/null; then
+        bashio::log.warning "Nie udało się pobrać czasu z routera. Wymuszam pobieranie dla bezpieczeństwa."
+        REMOTE_TIME=$((LOCAL_TIME + 1))
+    fi
+
+    # 2. Porównanie czasów
+    if [ "$LOCAL_TIME" -ge "$REMOTE_TIME" ]; then
+        bashio::log.info "Certyfikat w Home Assistant jest AKTUALNY (taki sam lub nowszy niż na routerze)."
+        bashio::log.info "Kopiowanie pominięte."
+        exit 0
+		exec /run/s6/basedir/bin/halt
+    else
+        bashio::log.info "Wykryto nowszy certyfikat na routerze ASUS. Rozpoczynam pobieranie..."
+    fi
+else
+    bashio::log.info "Brak lokalnego certyfikatu w /ssl. Pobieram po raz pierwszy..."
+fi
+
+bashio::log.info "=== SUKCES: Nowe pliki zostały zapisane w /ssl ==="
 echo "sshing key..."
-ssh ${ROUTER_USER}@${ROUTER_IP} -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${KEY_PATH_ON_ROUTER}" > /ssl/key.pem
+$SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "cat ${CERT_PATH_ON_ROUTER}" > /ssl/cert.pem
 echo "sshing cert..."
-ssh ${ROUTER_USER}@${ROUTER_IP} -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${CERT_PATH_ON_ROUTER}" > /ssl/cert.pem
+$SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "cat ${KEY_PATH_ON_ROUTER}" > /ssl/privkey.pem
 
 bashio::log.info "Done. Exiting..."
 
