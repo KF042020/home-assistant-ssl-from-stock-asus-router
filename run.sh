@@ -1,4 +1,4 @@
-#!/usr/bin/with-contenv bashio
+#!/bin/bash
 set -e
 
 SSH_DIR=~/.ssh
