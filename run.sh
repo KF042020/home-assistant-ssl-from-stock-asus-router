@@ -39,6 +39,6 @@ chmod 644 ${SSH_DIR}/known_hosts;
 cat ${SSH_DIR}/known_hosts
 
 echo "sshing key..."
-ssh ${ROUTER_USER}@${ROUTER_IP} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${KEY_PATH_ON_ROUTER}" > /ssl/key.pem
+ssh ${ROUTER_USER}@${ROUTER_IP} -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${KEY_PATH_ON_ROUTER}" > /ssl/key.pem
 echo "sshing cert..."
-ssh ${ROUTER_USER}@${ROUTER_IP} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${CERT_PATH_ON_ROUTER}" > /ssl/cert.pem
+ssh ${ROUTER_USER}@${ROUTER_IP} -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/"${RSA_PRIVATE_KEY_PATH}" "cat ${CERT_PATH_ON_ROUTER}" > /ssl/cert.pem
