@@ -43,7 +43,7 @@ LOCAL_CERT="/ssl/cert.pem"
 bashio::log.info "=== START AUTOMATYZACJI MÓJ FORK ==="
 
 # Skrócona konfiguracja SSH dla czytelności kodu
-SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
+SSH_CMD="ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
 
 # 1. Sprawdzenie czy lokalny plik w ogóle istnieje
 if [ -f "$LOCAL_CERT" ]; then
