@@ -1,22 +1,14 @@
-#!/bin/sh
+#!/usr/bin/with-contenv bashio
 set -e
 
 SSH_DIR=~/.ssh
 
-# ROUTER_USER="$(bashio::config 'sslFromAsusRouter.routerUser')"
-# ROUTER_IP="$(bashio::config 'sslFromAsusRouter.routerIp')"
-# ROUTER_PORT="$(bashio::config 'sslFromAsusRouter.routerSshPort')"
-# RSA_PRIVATE_KEY_PATH="$(bashio::config 'sslFromAsusRouter.rsaPrivateKeyPath')"
-# KEY_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.keyFilePathOnRouter')"
-# CERT_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.certFilePathOnRouter')"
-
-ROUTER_USER=$(jq --raw-output '.routerUser' /data/options.json)
-ROUTER_IP=$(jq --raw-output '.routerIp' /data/options.json)
-ROUTER_PORT=$(jq --raw-output '.routerSshPort' /data/options.json)
-RSA_PRIVATE_KEY_PATH=$(jq --raw-output '.rsaPrivateKeyPath' /data/options.json)
-KEY_PATH_ON_ROUTER=$(jq --raw-output '.keyFilePathOnRouter' /data/options.json)
-CERT_PATH_ON_ROUTER=$(jq --raw-output '.certFilePathOnRouter' /data/options.json)
-
+ROUTER_USER="$(bashio::config 'sslFromAsusRouter.routerUser')"
+ROUTER_IP="$(bashio::config 'sslFromAsusRouter.routerIp')"
+ROUTER_PORT="$(bashio::config 'sslFromAsusRouter.routerSshPort')"
+RSA_PRIVATE_KEY_PATH="$(bashio::config 'sslFromAsusRouter.rsaPrivateKeyPath')"
+KEY_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.keyFilePathOnRouter')"
+CERT_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.certFilePathOnRouter')"
 
 echo "Getting Router Public RSA Key...."
 ROUTER_RSA_KEY=$(ssh-keyscan -p ${ROUTER_PORT} -t rsa ${ROUTER_IP})
