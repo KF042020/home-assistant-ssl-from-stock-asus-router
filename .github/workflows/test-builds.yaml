@@ -38,7 +38,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
           push: true
           tags: |
-            ghcr.io/${{ github.repository_owner }}/refresher-ssl-cert-from-stock-asus-router-amd64:latest
-            ghcr.io/${{ github.repository_owner }}/refresher-ssl-cert-from-stock-asus-router-amd64:0.1.0
+            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:latest
+            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:0.1.0
           cache-from: type=gha
           cache-to: type=gha,mode=max
