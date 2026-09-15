@@ -2,7 +2,7 @@
 FROM alpine:3.19
 
 RUN apk update
-RUN apk add openssh
+RUN apk add --no-cache openssh-client jq coreutils
 
 # Copy data for add-on
 COPY run.sh /
