@@ -31,7 +31,7 @@ jobs:
         with:
           args: |
             --all \
-            --target asus-ssl-fork \
+            --target . \
             --image "refresher-ssl-cert-from-stock-asus-router-{arch}" \
             --registry ghcr.io \
             --docker-user "${{ github.actor }}" \
