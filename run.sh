@@ -43,7 +43,7 @@ LOCAL_CERT="/ssl/cert.pem"
 bashio::log.info "=== START AUTOMATYZACJI MÓJ FORK ==="
 
 # Skrócona konfiguracja SSH dla czytelności kodu
-SSH_CMD="ssh -v -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
+SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
 
 # 1. Sprawdzenie czy lokalny plik w ogóle istnieje
 if [ -f "$LOCAL_CERT" ]; then
@@ -67,8 +67,7 @@ if [ -f "$LOCAL_CERT" ]; then
     if [ "$LOCAL_TIME" -ge "$REMOTE_TIME" ]; then
         bashio::log.info "Certyfikat w Home Assistant jest AKTUALNY (taki sam lub nowszy niż na routerze)."
         bashio::log.info "Kopiowanie pominięte."
-        exit 0
-		exec /run/s6/basedir/bin/halt
+ 		exec /run/s6/basedir/bin/halt
     else
         bashio::log.info "Wykryto nowszy certyfikat na routerze ASUS. Rozpoczynam pobieranie..."
     fi
