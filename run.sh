@@ -51,9 +51,11 @@ if [ -f "$LOCAL_CERT" ]; then
     
     # Pobieramy datę modyfikacji pliku lokalnego (w sekundach Unix)
     LOCAL_TIME=$(stat -c %Y "$LOCAL_CERT")
+    bashio::log.info "$LOCAL_TIME"
     
     # Pobieramy datę modyfikacji pliku na routerze przez SSH
     REMOTE_TIME=$($SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "stat -c %Y ${CERT_PATH_ON_ROUTER}" 2>/dev/null)
+    bashio::log.info "$REMOTE_TIME"
     
     # Awaryjna weryfikacja na wypadek gdyby router nie zwrócił daty (np. brak polecenia stat)
     if [ -z "$REMOTE_TIME" ] || ! [ "$REMOTE_TIME" -eq "$REMOTE_TIME" ] 2>/dev/null; then
