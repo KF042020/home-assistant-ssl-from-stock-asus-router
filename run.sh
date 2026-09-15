@@ -54,7 +54,7 @@ if [ -f "$LOCAL_CERT" ]; then
     bashio::log.info "$LOCAL_TIME"
     
     # Pobieramy datę modyfikacji pliku na routerze przez SSH
-    REMOTE_TIME=$($SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "stat -c %Y ${CERT_PATH_ON_ROUTER}" 2>/dev/null)
+    REMOTE_TIME=$($SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "date -r ${CERT_PATH_ON_ROUTER} +%s")
     bashio::log.info "$REMOTE_TIME"
     
     # Awaryjna weryfikacja na wypadek gdyby router nie zwrócił daty (np. brak polecenia stat)
