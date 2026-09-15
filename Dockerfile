@@ -1,5 +1,5 @@
 # ARG BUILD_FROM
-FROM alpine:3.19
+FROM homeassistant/amd64-base:latest
 
 RUN apk update
 RUN apk add openssh
