@@ -1,5 +1,5 @@
-ARG BUILD_FROM
-FROM $BUILD_FROM
+# ARG BUILD_FROM
+FROM alpine:3.19
 
 RUN apk update
 RUN apk add openssh
