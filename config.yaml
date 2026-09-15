@@ -3,7 +3,6 @@ version: 0.1.0
 slug: "refresher_ssl_cert_from_stock_asus_router_ssh_i_option"
 description: "An Add-on that help refresh the SSL certificate under the /SSL folder from Stock Asus Router DDNS (-i ssh option version)"
 startup: once
-image: ghcr.io/ricardoaveloso/refresher-ssl-cert-from-stock-asus-ddns-router-{arch}
 arch:
   - armhf
   - armv7
