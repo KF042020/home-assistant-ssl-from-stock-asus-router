@@ -1,4 +1,5 @@
 # home-assistant-ssl-from-asus-router
+
 ## About
 This add-on helps transfer the SSL sertificate that Asus Stock Routers creates along with it's DDNS feature into Homeassitant.
 
