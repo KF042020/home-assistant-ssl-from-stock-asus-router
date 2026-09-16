@@ -1,22 +1,25 @@
 configuration:
-  routerUser:
-    name: "Nazwa użytkownika routera"
-    description: "Nazwa konta administratora używana do logowania się do routera ASUS."
-  routerIp:
-    name: "Adres IP routera"
-    description: "Lokalny adres IP Twojego routera ASUS (np. 192.168.50.1)."
-  routerSshPort:
-    name: "Port SSH"
-    description: "Port skonfigurowany dla dostępu SSH na Twoim routerze (domyślnie 22)."
-  rsaPrivateKeyPath:
-    name: "Ścieżka do klucza prywatnego"
-    description: "Ścieżka relatywna do folderu /config w Home Assistant, wskazująca na Twój prywatny klucz SSH."
-  keyFilePathOnRouter:
-    name: "Ścieżka klucza na routerze"
-    description: "Bezwzględna ścieżka na routerze, pod którą przechowywany jest klucz prywatny certyfikatu (.pem)."
-  certFilePathOnRouter:
-    name: "Ścieżka certyfikatu na routerze"
-    description: "Bezwzględna ścieżka na routerze, pod którą przechowywany jest certyfikat SSL DDNS (.pem)."
-  statusHelper:
-    name: "Pomocnik stanu (input_text)"
-    description: "(Opcjonalnie) Pełna nazwa encji pomocnika input_text (np. input_text.wersja_certyfikatu_routera), która ma być aktualizowana po pobraniu nowego certyfikatu. Zostaw puste, jeśli nie chcesz śledzić statusu."
+  sslFromAsusRouter:
+    name: "Konfiguracja SSL Routera ASUS"
+    description: "Ustawienia bezpiecznego uwierzytelniania SSH i ścieżek certyfikatów."
+    routerUser:
+      name: "Nazwa użytkownika routera"
+      description: "Nazwa konta administratora używana do logowania się do routera ASUS."
+    routerIp:
+      name: "Adres IP routera"
+      description: "Lokalny adres IP Twojego routera ASUS (np. 192.168.50.1)."
+    routerSshPort:
+      name: "Port SSH"
+      description: "Port skonfigurowany dla dostępu SSH na Twoim routerze (domyślnie 22)."
+    rsaPrivateKeyPath:
+      name: "Ścieżka do klucza prywatnego"
+      description: "Ścieżka relatywna do folderu /config w Home Assistant, wskazująca na Twój prywatny klucz SSH."
+    keyFilePathOnRouter:
+      name: "Ścieżka klucza na routerze"
+      description: "Bezwzględna ścieżka na routerze, pod którą przechowywany jest klucz prywatny certyfikatu (.pem)."
+    certFilePathOnRouter:
+      name: "Ścieżka certyfikatu na routerze"
+      description: "Bezwzględna ścieżka na routerze, pod którą przechowywany jest certyfikat SSL DDNS (.pem)."
+    statusHelper:
+      name: "Pomocnik stanu (input_text)"
+      description: "(Opcjonalnie) Pełna nazwa encji pomocnika input_text (np. input_text.wersja_certyfikatu_routera), która ma być aktualizowana po pobraniu nowego certyfikatu. Zostaw puste, jeśli nie chcesz śledzić statusu."
