@@ -2,7 +2,7 @@ configuration:
   sslFromAsusRouter:
     name: "ASUS Router SSL Configuration"
     description: "Settings for secure SSH authentication and certificate paths."
-    schema:
+    fields:
       routerUser:
         name: "Router Username"
         description: "The administrator username used to log into your ASUS router."
