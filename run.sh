@@ -38,12 +38,21 @@ if [ -f "$LOCAL_CERT" ]; then
     
     # Fetch modification time of the local file (in Unix seconds)
     LOCAL_TIME=$(stat -c %Y "$LOCAL_CERT")
-    bashio::log.info "$LOCAL_TIME"
+    # Convert local timestamp to human-readable format:
+    HUMAN_LOCAL_TIME=$(date -d "@$LOCAL_TIME" "+%Y-%m-%d %H:%M:%S")
+    bashio::log.info "Local certificate timestamp: $HUMAN_LOCAL_TIME"
     
     # Fetch modification time of the file on the router via SSH
     REMOTE_TIME=$($SSH_CMD ${ROUTER_USER}@${ROUTER_IP} "date -r ${CERT_PATH_ON_ROUTER} +%s")
-    bashio::log.info "$REMOTE_TIME"
     
+    # Verify if REMOTE_TIME is a valid number before conversion
+    if [ -n "$REMOTE_TIME" ] && [ "$REMOTE_TIME" -eq "$REMOTE_TIME" ] 2>/dev/null; then
+        HUMAN_REMOTE_TIME=$(date -d "@$REMOTE_TIME" "+%Y-%m-%d %H:%M:%S")
+        bashio::log.info "Remote certificate timestamp: $HUMAN_REMOTE_TIME"
+    else
+        bashio::log.info "Remote certificate timestamp: Raw data invalid or empty"
+    fi
+
     # Fallback validation in case the router fails to return a timestamp
     if [ -z "$REMOTE_TIME" ] || ! [ "$REMOTE_TIME" -eq "$REMOTE_TIME" ] 2>/dev/null; then
         bashio::log.warning "Failed to fetch timestamp from the router. Forcing download for safety."
