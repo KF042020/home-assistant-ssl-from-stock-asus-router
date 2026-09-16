@@ -1,10 +1,7 @@
 name: Build Add-on
 
 on:
-  push:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_dispatch: # Zostawiamy TYLKO ręczne uruchamianie zielonym przyciskiem
 
 jobs:
   build:
@@ -31,6 +28,12 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Extract version from config.yaml
+        id: version
+        run: |
+          VERSION=$(grep '^version:' config.yaml | awk '{print $2}' | tr -d '"' | tr -d "'")
+          echo "addon_version=${VERSION}" >> $GITHUB_OUTPUT
+
       - name: Build and Push Image
         uses: docker/build-push-action@v6
         with:
@@ -39,6 +42,6 @@ jobs:
           push: true
           tags: |
             ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:latest
-            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:0.2.4
+            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:${{ steps.version.outputs.addon_version }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
