@@ -102,7 +102,7 @@ if [ -n "$STATUS_HELPER" ]; then
       -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
       -H "Content-Type: application/json" \
       -d "{\"state\": \"Updated: ${NEW_DATE}\"}" \
-      http://supervisor/core/api/states/${STATUS_HELPER}
+      http://supervisor/core/api/states/${STATUS_HELPER} > /dev/null
       
     bashio::log.info "Status helper updated successfully!"
 else
