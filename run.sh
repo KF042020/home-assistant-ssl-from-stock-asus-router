@@ -98,7 +98,7 @@ if [ -n "$STATUS_HELPER" ]; then
     NEW_DATE=$(date "+%Y-%m-%d %H:%M:%S")
     bashio::log.info "Updating dynamic status helper [${STATUS_HELPER}] in Home Assistant..."
     
-    curl -X POST \
+    curl -sS -X POST \
       -H "Authorization: Bearer ${SUPERVISOR_TOKEN}" \
       -H "Content-Type: application/json" \
       -d "{\"state\": \"Updated: ${NEW_DATE}\"}" \
