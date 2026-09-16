@@ -1,5 +1,5 @@
 {
-  "configuration": {
+  "config": {
     "routerUser": {
       "name": "Router Username",
       "description": "The administrator username used to log into your ASUS router."
