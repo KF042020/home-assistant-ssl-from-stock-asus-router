@@ -1,5 +1,5 @@
 name: "Refresh SSL Cert From Stock Asus DDNS Router"
-version: 0.1.0
+version: 0.1.1
 slug: "refresher_ssl_cert_from_stock_asus_router_ssh_i_option"
 image: "ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-{arch}"
 description: "An Add-on that help refresh the SSL certificate under the /SSL folder from Stock Asus Router DDNS (-i ssh option version)"
@@ -17,6 +17,8 @@ environment:
   CONFIG_PATH: /data/options.json
 init: false
 apparmor: true
+host_network: true
+homeassistant_api: true
 options:
   sslFromAsusRouter:
     routerUser: null
@@ -25,6 +27,7 @@ options:
     rsaPrivateKeyPath: null
     keyFilePathOnRouter: null
     certFilePathOnRouter: null
+    statusHelper: null
 schema:
   sslFromAsusRouter:
     routerUser: str
@@ -33,3 +36,4 @@ schema:
     rsaPrivateKeyPath: str
     keyFilePathOnRouter: str
     certFilePathOnRouter: str
+    statusHelper?: str
