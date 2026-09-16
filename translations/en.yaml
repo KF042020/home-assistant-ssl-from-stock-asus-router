@@ -1,22 +1,25 @@
 configuration:
-  routerUser:
-    name: "Router Username"
-    description: "The administrator username used to log into your ASUS router."
-  routerIp:
-    name: "Router IP Address"
-    description: "The local IP address of your ASUS router (e.g., 192.168.50.1)."
-  routerSshPort:
-    name: "SSH Port"
-    description: "The port configured for SSH access on your router (default is 22)."
-  rsaPrivateKeyPath:
-    name: "Private Key Path"
-    description: "The path relative to your Home Assistant /config folder pointing to your private SSH key."
-  keyFilePathOnRouter:
-    name: "Key Path on Router"
-    description: "The absolute path where the DDNS private key (.pem) is stored on the router."
-  certFilePathOnRouter:
-    name: "Certificate Path on Router"
-    description: "The absolute path where the DDNS SSL certificate (.pem) is stored on the router."
-  statusHelper:
-    name: "Status Helper Entity (input_text)"
-    description: "(Optional) The full entity ID of the input_text helper to be updated when a new certificate is fetched. Leave blank if you do not want to track status updates."
+  sslFromAsusRouter:
+    name: "ASUS Router SSL Configuration"
+    description: "Settings for secure SSH authentication and certificate paths."
+    routerUser:
+      name: "Router Username"
+      description: "The administrator username used to log into your ASUS router."
+    routerIp:
+      name: "Router IP Address"
+      description: "The local IP address of your ASUS router (e.g., 192.168.50.1)."
+    routerSshPort:
+      name: "SSH Port"
+      description: "The port configured for SSH access on your router (default is 22)."
+    rsaPrivateKeyPath:
+      name: "Private Key Path"
+      description: "The path relative to your Home Assistant /config folder pointing to your private SSH key."
+    keyFilePathOnRouter:
+      name: "Key Path on Router"
+      description: "The absolute path where the DDNS private key (.pem) is stored on the router."
+    certFilePathOnRouter:
+      name: "Certificate Path on Router"
+      description: "The absolute path where the DDNS SSL certificate (.pem) is stored on the router."
+    statusHelper:
+      name: "Status Helper Entity (input_text)"
+      description: "(Optional) The full entity ID of the input_text helper to be updated when a new certificate is fetched. Leave blank if you do not want to track status updates."
