@@ -37,4 +37,4 @@ schema:
     keyFilePathOnRouter: str
     certFilePathOnRouter: str
     statusHelper?: str
-translations: true
+
