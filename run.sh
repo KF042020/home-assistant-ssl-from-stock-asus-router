@@ -17,7 +17,7 @@ echo "Creating ${SSH_DIR}..."
 mkdir -p ${SSH_DIR}
 
 echo "Setting id_rsa file..."
-cp /config/"${RSA_PRIVATE_KEY_PATH}" ${SSH_DIR}/id_rsa
+cp /homeassistant/"${RSA_PRIVATE_KEY_PATH}" ${SSH_DIR}/id_rsa
 chmod 600 ${SSH_DIR}/id_rsa
 
 # We scan the router's key and save it directly to known_hosts (replacing the faulty author's loop)
@@ -30,7 +30,7 @@ LOCAL_CERT="/ssl/cert.pem"
 bashio::log.info "=== MY FORK AUTOMATION START ==="
 
 # Short SSH configuration for better code readability
-SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /config/${RSA_PRIVATE_KEY_PATH}"
+SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /homeassistant/${RSA_PRIVATE_KEY_PATH}"
 
 # 1. Check if the local certificate file exists
 if [ -f "$LOCAL_CERT" ]; then
