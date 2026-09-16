@@ -13,6 +13,21 @@ CERT_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.certFilePathOnRouter')"
 echo "Getting Router Public RSA Key...."
 CERT_PATH_ON_ROUTER="$(bashio::config 'sslFromAsusRouter.certFilePathOnRouter')"
 
+bashio::log.info "=== MY FORK AUTOMATION START ==="
+
+# --- MANDATORY FIELDS VALIDATION (Excluding statusHelper) ---
+if [ -z "$ROUTER_USER" ] || [ -z "$ROUTER_IP" ] || [ -z "$ROUTER_PORT" ] || \
+   [ -z "$RSA_PRIVATE_KEY_PATH" ] || [ -z "$KEY_PATH_ON_ROUTER" ] || [ -z "$CERT_PATH_ON_ROUTER" ]; then
+    
+    bashio::log.error "-------------------------------------------------------------------"
+    bashio::log.error " CRITICAL ERROR: Mandatory configuration options are missing!"
+    bashio::log.error " Please ensure all fields except the Status Helper are filled in UI."
+    bashio::log.error "-------------------------------------------------------------------"
+    
+    exec /run/s6/basedir/bin/halt
+fi
+# ------------------------------------------------------------
+
 echo "Creating ${SSH_DIR}..."
 mkdir -p ${SSH_DIR}
 
@@ -26,8 +41,6 @@ ssh-keyscan -p ${ROUTER_PORT} -t rsa ${ROUTER_IP} > ${SSH_DIR}/known_hosts
 chmod 644 ${SSH_DIR}/known_hosts
 
 LOCAL_CERT="/ssl/cert.pem"
-
-bashio::log.info "=== MY FORK AUTOMATION START ==="
 
 # Short SSH configuration for better code readability
 SSH_CMD="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p ${ROUTER_PORT} -i /homeassistant/${RSA_PRIVATE_KEY_PATH}"
