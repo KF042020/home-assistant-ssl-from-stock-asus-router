@@ -39,6 +39,6 @@ jobs:
           push: true
           tags: |
             ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:latest
-            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:0.1.6
+            ghcr.io/kf042020/refresher-ssl-cert-from-stock-asus-router-amd64:0.1.7
           cache-from: type=gha
           cache-to: type=gha,mode=max
