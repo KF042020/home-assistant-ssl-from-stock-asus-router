@@ -18,13 +18,12 @@ host_network: true
 homeassistant_api: true
 options:
   sslFromAsusRouter:
-    routerUser: ""
-    routerIp: ""
+    routerUser: null
+    routerIp: null
     routerSshPort: 22
-    rsaPrivateKeyPath: ""
-    keyFilePathOnRouter: ""
-    certFilePathOnRouter: ""
-    statusHelper: null
+    rsaPrivateKeyPath: null
+    keyFilePathOnRouter: null
+    certFilePathOnRouter: null
 schema:
   sslFromAsusRouter:
     routerUser: str
